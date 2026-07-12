@@ -575,41 +575,70 @@ document.addEventListener('DOMContentLoaded', async function() {
 })();
 </script>
 
+
 <script>
 (function () {
-  // patch-curriculum-button: adiciona um botao "Fazer download do CV" na
-  // secao de contato, permitindo que visitantes baixem o curriculo em PDF.
-  // O botao clona o estilo do botao "Ver projetos" (primario) mas com
-  // icone de download. O href aponta para curriculum.html que o navegador
-  // interpreta como "download" quando servido com content-disposition:attachment
-  // ou simplesmente abre em nova aba (user-friendly).
-
-  function criarBotaoCurriculo() {
-    var botaoProjetos = document.querySelector('a[href="#projetos"]');
-    if (!botaoProjetos) return false;
-    if (document.querySelector('a[href="curriculum.html"]')) return true;
-
-    var btnCV = botaoProjetos.cloneNode(true);
-    btnCV.setAttribute('href', 'curriculum.html');
-    btnCV.setAttribute('target', '_blank');
-    btnCV.setAttribute('rel', 'noopener');
-    btnCV.textContent = '📄 Fazer download do CV';
-
-    // estilo: deixa com mesmo tamanho mas cor ligeiramente diferente para
-    // destacar que eh download (nao navegacao interna)
-    btnCV.style.marginRight = '10px';
-
-    var container = botaoProjetos.parentElement;
-    container.insertBefore(btnCV, botaoProjetos.nextSibling);
+  // patch-curriculum-button v2: botao "Download CV" nos botoes do hero.
+  // A v1 usava a[href="#projetos"], que casa primeiro com o link
+  // "projetos" do MENU e jogava o botao dentro da nav, estourando a
+  // barra no celular. Agora ancoramos no botao do LinkedIn (que so
+  // existe no hero) e inserimos antes dele.
+  function iniciar() {
+    var linkedin = document.querySelector('a[href*="linkedin.com"]');
+    if (!linkedin) return false;
+    var container = linkedin.parentElement;
+    if (container.querySelector('a[href="curriculum.html"]')) return true;
+    var btn = linkedin.cloneNode(false);
+    btn.setAttribute('href', 'curriculum.html');
+    btn.setAttribute('target', '_blank');
+    btn.setAttribute('rel', 'noopener');
+    btn.textContent = 'Download CV \u2193';
+    container.insertBefore(btn, linkedin);
     return true;
   }
-
   var tentativas = 0;
-  var maxTentativas = 40;
   var intervalo = setInterval(function () {
     tentativas++;
-    if (criarBotaoCurriculo() || tentativas >= maxTentativas) clearInterval(intervalo);
+    if (iniciar() || tentativas >= 40) clearInterval(intervalo);
   }, 300);
 })();
-</script></body>
+</script>
+<script>
+(function () {
+  // patch-mobile-fix: o desempacotador do bundle reconstroi o <head>
+  // sem <meta name="viewport">, entao o celular renderizava a pagina
+  // como desktop em miniatura (com zoom out e rolagem lateral).
+  // Injetamos a meta viewport e um CSS responsivo que faz o menu
+  // quebrar linha em telas estreitas (8 itens nao cabem em uma linha).
+  // Reafirmamos por polling porque o head e reconstruido no boot.
+  var CSS = '' +
+    '@media (max-width: 900px) {' +
+    '  nav > div { height: auto !important; flex-wrap: wrap !important; padding: 12px 20px !important; row-gap: 8px !important; }' +
+    '  nav > div > div:last-of-type { flex-wrap: wrap !important; gap: 8px 18px !important; width: 100%; }' +
+    '  #scroll-track { display: none !important; }' +
+    '}';
+  function aplicar() {
+    if (!document.querySelector('meta[name="viewport"]')) {
+      var meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, initial-scale=1';
+      document.head.appendChild(meta);
+    }
+    if (!document.getElementById('mobile-fix-style')) {
+      var style = document.createElement('style');
+      style.id = 'mobile-fix-style';
+      style.textContent = CSS;
+      document.head.appendChild(style);
+    }
+  }
+  aplicar();
+  var tentativas = 0;
+  var intervalo = setInterval(function () {
+    tentativas++;
+    aplicar();
+    if (tentativas >= 40) clearInterval(intervalo);
+  }, 300);
+})();
+</script>
+</body>
 </html>
