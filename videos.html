@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0e13'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-style='italic' font-size='38' fill='%232dd4a7' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vídeos — Entendendo Dinheiro — Gabriel Sturalli</title>
+<style>
+  :root {
+    --bg: #0a0e13;
+    --bg-alt: #11161d;
+    --card: #131920;
+    --border: #212a35;
+    --border-soft: #1b232c;
+    --text: #eef1f4;
+    --text-dim: #9aa7b4;
+    --text-mute: #5b6b78;
+    --accent: #2dd4a7;
+    --accent-soft: rgba(45, 212, 167, 0.1);
+    --font: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --mono: 'Consolas', 'SFMono-Regular', Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  a { color: var(--accent); text-decoration: none; }
+
+  /* ---------- Preloader de entrada (nome digitado) ---------- */
+  #preloader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.45s ease;
+  }
+  #preloader.saindo { opacity: 0; pointer-events: none; }
+  #preloader-typed {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(26px, 5vw, 42px);
+    color: var(--text); letter-spacing: 0.5px;
+  }
+  #preloader-typed .caret {
+    display: inline-block; width: 2px; height: 1em;
+    background: var(--accent); margin-left: 4px;
+    vertical-align: -0.12em;
+    animation: caretBlink 0.85s steps(1) infinite;
+  }
+  @keyframes caretBlink { 50% { opacity: 0; } }
+
+  /* ---------- Overlay de saída ---------- */
+  #exit-overlay {
+    position: fixed; inset: 0; z-index: 9998;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  #exit-overlay.ativo { opacity: 1; pointer-events: all; }
+  #exit-overlay span {
+    font-family: var(--serif); font-style: italic;
+    font-size: 16px; color: var(--accent);
+  }
+
+  /* ---------- Topbar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10, 14, 19, 0.82);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .topbar-inner {
+    max-width: 1040px; margin: 0 auto; padding: 0 24px;
+    height: 68px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar a.voltar { font-size: 14px; font-weight: 600; }
+  .topbar a.voltar:hover { text-decoration: underline; }
+  .topbar .rotulo { font-family: var(--mono); font-size: 13.5px; color: var(--text-dim); }
+
+  /* ---------- Cabeçalho ---------- */
+  .hero { max-width: 1040px; margin: 0 auto; padding: 72px 24px 10px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.12em;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(30px, 5vw, 46px); line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 16px;
+  }
+  .hero h1 em { color: var(--accent); font-style: italic; }
+  .hero .sub { color: var(--text-dim); max-width: 640px; font-size: 15.5px; margin-bottom: 22px; }
+  .btn-canal {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 13px; font-weight: 700;
+    color: var(--bg); background: var(--accent);
+    padding: 10px 18px; border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-canal:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(45,212,167,0.25); }
+  .btn-canal svg { width: 18px; height: 18px; }
+
+  /* ---------- Grid de vídeos ---------- */
+  .grid {
+    max-width: 1040px; margin: 0 auto; padding: 34px 24px 90px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 26px;
+  }
+  .video-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; cursor: pointer;
+    opacity: 0; transform: translateY(26px);
+    transition: opacity 0.55s cubic-bezier(.16,1,.3,1), transform 0.55s cubic-bezier(.16,1,.3,1),
+                border-color 0.25s, box-shadow 0.25s;
+  }
+  .video-card.visivel { opacity: 1; transform: translateY(0); }
+  .video-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 14px 38px rgba(0,0,0,0.45), 0 0 0 1px var(--accent);
+    transform: translateY(-5px);
+  }
+  .thumb {
+    position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+    background: var(--bg-alt);
+  }
+  .thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.6s cubic-bezier(.16,1,.3,1);
+  }
+  .video-card:hover .thumb img { transform: scale(1.06); }
+  .thumb .duracao {
+    position: absolute; right: 10px; bottom: 10px;
+    font-family: var(--mono); font-size: 12px; font-weight: 700;
+    color: var(--text); background: rgba(10, 14, 19, 0.85);
+    padding: 3px 8px; border-radius: 6px;
+  }
+  .thumb .play {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(10, 14, 19, 0.35);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .video-card:hover .thumb .play { opacity: 1; }
+  .thumb .play .circulo {
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 26px rgba(45,212,167,0.4);
+  }
+  .thumb .play svg { width: 22px; height: 22px; margin-left: 3px; }
+  .video-body { padding: 18px 20px 20px; }
+  .video-body h2 {
+    font-family: var(--serif); font-weight: 600; font-size: 18px;
+    line-height: 1.35; letter-spacing: -0.2px; margin-bottom: 8px;
+  }
+  .video-body .assistir {
+    font-family: var(--mono); font-size: 12.5px; color: var(--accent);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .video-body .assistir .seta { transition: transform 0.25s; display: inline-block; }
+  .video-card:hover .assistir .seta { transform: translateX(5px); }
+
+  /* ---------- Player (lightbox) ---------- */
+  #player-modal {
+    position: fixed; inset: 0; z-index: 9000;
+    background: rgba(6, 9, 13, 0.92);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  #player-modal.aberto { opacity: 1; pointer-events: all; }
+  .player-caixa {
+    width: min(960px, 100%);
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.3s cubic-bezier(.16,1,.3,1);
+  }
+  #player-modal.aberto .player-caixa { transform: translateY(0) scale(1); }
+  .player-topo {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px; gap: 16px;
+  }
+  .player-topo .titulo {
+    font-family: var(--serif); font-size: 17px; font-weight: 600;
+    color: var(--text); line-height: 1.3;
+  }
+  .player-topo .acoes { display: flex; gap: 14px; align-items: center; flex-shrink: 0; }
+  .player-topo a { font-family: var(--mono); font-size: 12.5px; }
+  .player-topo a:hover { text-decoration: underline; }
+  .player-topo button {
+    background: none; border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text-dim); font-size: 18px; line-height: 1;
+    width: 34px; height: 34px; cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .player-topo button:hover { color: var(--text); border-color: var(--text-mute); }
+  .player-frame {
+    aspect-ratio: 16 / 9; background: #000;
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .player-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  footer {
+    padding: 44px 24px; text-align: center;
+    color: var(--text-mute); font-size: 13px;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader"><div id="preloader-typed"><span class="caret"></span></div></div>
+<div id="exit-overlay"><span>Gabriel Sturalli</span></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="voltar" href="index.html">&larr; Voltar ao portfólio</a>
+    <span class="rotulo">// vídeos</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="eyebrow">// entendendo dinheiro</div>
+  <h1>Uma fase de <em>aprendizado</em> em vídeo</h1>
+  <p class="sub">
+    Antes dos dashboards e das análises escritas, criei o <strong>Entendendo Dinheiro</strong> —
+    um canal de finanças com assuntos econômicos e mini documentários. Pesquisa, roteiro,
+    gravação e edição: um exercício completo de traduzir conceitos de economia para
+    qualquer pessoa. Os vídeos ficam aqui como registro dessa etapa.
+  </p>
+  <a class="btn-canal" id="btn-canal" href="https://www.youtube.com/@Entendendodinheiro" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+    Ver canal no YouTube
+  </a>
+</header>
+
+<main class="grid" id="grid"></main>
+
+<div id="player-modal">
+  <div class="player-caixa">
+    <div class="player-topo">
+      <div class="titulo" id="player-titulo"></div>
+      <div class="acoes">
+        <a id="player-link" href="#" target="_blank" rel="noopener">Abrir no YouTube &nearr;</a>
+        <button id="player-fechar" aria-label="Fechar">&times;</button>
+      </div>
+    </div>
+    <div class="player-frame" id="player-frame"></div>
+  </div>
+</div>
+
+<footer>© <span id="ano"></span> Gabriel Sturalli.</footer>
+
+<script src="videos-data.js"></script>
+<script>
+(function () {
+  var VIDEOS = window.__VIDEOS__ || [];
+  var CANAL = window.__CANAL__ || {};
+  document.getElementById('ano').textContent = new Date().getFullYear();
+  if (CANAL.url) document.getElementById('btn-canal').setAttribute('href', CANAL.url);
+
+  // ---------- Preloader: digita o nome letra a letra ----------
+  (function preloader() {
+    var alvo = document.getElementById('preloader-typed');
+    var caret = alvo.querySelector('.caret');
+    var NOME = 'Gabriel Sturalli';
+    var i = 0;
+    var timer = setInterval(function () {
+      i++;
+      alvo.textContent = NOME.slice(0, i);
+      alvo.appendChild(caret);
+      if (i >= NOME.length) {
+        clearInterval(timer);
+        setTimeout(function () {
+          document.getElementById('preloader').classList.add('saindo');
+        }, 360);
+      }
+    }, 46);
+  })();
+
+  // ---------- Transição de saída para outras páginas .html ----------
+  document.querySelectorAll('a[href$=".html"]:not([download])').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('exit-overlay').classList.add('ativo');
+      setTimeout(function () { window.location.href = a.getAttribute('href'); }, 400);
+    });
+  });
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ---------- Grid de vídeos ----------
+  var grid = document.getElementById('grid');
+  grid.innerHTML = VIDEOS.map(function (v) {
+    // hq720 (1280x720) quando existir; hqdefault como fallback via onerror
+    return (
+      '<article class="video-card" data-id="' + esc(v.id) + '" data-titulo="' + esc(v.titulo) + '">' +
+        '<div class="thumb">' +
+          '<img src="https://i.ytimg.com/vi/' + esc(v.id) + '/hq720.jpg" ' +
+               'onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + esc(v.id) + '/hqdefault.jpg\'" ' +
+               'alt="Capa: ' + esc(v.titulo) + '" loading="lazy">' +
+          (v.duracao ? '<span class="duracao">' + esc(v.duracao) + '</span>' : '') +
+          '<div class="play"><div class="circulo"><svg viewBox="0 0 24 24" fill="#0a0e13"><path d="M8 5v14l11-7z"/></svg></div></div>' +
+        '</div>' +
+        '<div class="video-body">' +
+          '<h2>' + esc(v.titulo) + '</h2>' +
+          '<span class="assistir">Assistir <span class="seta">&rarr;</span></span>' +
+        '</div>' +
+      '</article>'
+    );
+  }).join('');
+
+  // entrada animada, escalonada
+  (function revelar() {
+    var cards = grid.querySelectorAll('.video-card');
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (ent) {
+        if (ent.isIntersecting) {
+          ent.target.classList.add('visivel');
+          io.unobserve(ent.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    cards.forEach(function (card, i) {
+      card.style.transitionDelay = Math.min(i * 70, 420) + 'ms';
+      io.observe(card);
+    });
+    setTimeout(function () {
+      cards.forEach(function (c) { c.classList.add('visivel'); });
+    }, 1400);
+  })();
+
+  // ---------- Player embutido (lightbox) ----------
+  var modal = document.getElementById('player-modal');
+  var frame = document.getElementById('player-frame');
+  var tituloEl = document.getElementById('player-titulo');
+  var linkEl = document.getElementById('player-link');
+
+  // O player embutido do YouTube exige que a pagina envie um referrer HTTP;
+  // quando o site e aberto direto do disco (file://) nao existe referrer e o
+  // embed falha com "Erro 153". Nesse caso, abrimos o video direto no YouTube.
+  var EMBED_OK = window.location.protocol !== 'file:';
+
+  function abrirPlayer(id, titulo) {
+    if (!EMBED_OK) {
+      window.open('https://www.youtube.com/watch?v=' + id, '_blank', 'noopener');
+      return;
+    }
+    tituloEl.textContent = titulo;
+    linkEl.setAttribute('href', 'https://www.youtube.com/watch?v=' + id);
+    frame.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0" ' +
+      'title="' + esc(titulo) + '" referrerpolicy="strict-origin-when-cross-origin" ' +
+      'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    modal.classList.add('aberto');
+    document.body.style.overflow = 'hidden';
+  }
+  function fecharPlayer() {
+    modal.classList.remove('aberto');
+    document.body.style.overflow = '';
+    // remove o iframe para parar o som imediatamente
+    setTimeout(function () { frame.innerHTML = ''; }, 300);
+  }
+
+  grid.addEventListener('click', function (e) {
+    var card = e.target.closest('.video-card');
+    if (!card) return;
+    abrirPlayer(card.getAttribute('data-id'), card.getAttribute('data-titulo'));
+  });
+  document.getElementById('player-fechar').addEventListener('click', fecharPlayer);
+  modal.addEventListener('click', function (e) { if (e.target === modal) fecharPlayer(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('aberto')) fecharPlayer();
+  });
+})();
+</script>
+</body>
+</html>

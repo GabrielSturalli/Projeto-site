@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#11161d"/>
+      <stop offset="1" stop-color="#0b0f14"/>
+    </linearGradient>
+    <linearGradient id="areaCurva" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2dd4a7" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#2dd4a7" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="brilho" cx="0.78" cy="0.22" r="0.7">
+      <stop offset="0" stop-color="#2dd4a7" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#2dd4a7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#fundo)"/>
+  <rect width="1200" height="630" fill="url(#brilho)"/>
+
+  <!-- grade -->
+  <g stroke="#1b232c" stroke-width="1">
+    <line x1="0" y1="140" x2="1200" y2="140"/>
+    <line x1="0" y1="260" x2="1200" y2="260"/>
+    <line x1="0" y1="380" x2="1200" y2="380"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="450" y1="0" x2="450" y2="630"/>
+    <line x1="700" y1="0" x2="700" y2="630"/>
+    <line x1="950" y1="0" x2="950" y2="630"/>
+  </g>
+
+  <!-- área sob a curva -->
+  <path d="M60 470 C 260 430, 380 350, 560 310 C 740 270, 900 250, 1140 235 L 1140 630 L 60 630 Z" fill="url(#areaCurva)"/>
+
+  <!-- curva principal -->
+  <path d="M60 470 C 260 430, 380 350, 560 310 C 740 270, 900 250, 1140 235" fill="none" stroke="#2dd4a7" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- curva de cenário (tracejada) -->
+  <path d="M60 430 C 280 410, 420 400, 600 390 C 800 378, 950 385, 1140 400" fill="none" stroke="#f0a63f" stroke-width="3.5" stroke-dasharray="10 8" stroke-linecap="round"/>
+
+  <!-- pontos -->
+  <g fill="#2dd4a7" stroke="#0b0f14" stroke-width="3">
+    <circle cx="200" cy="443" r="7"/>
+    <circle cx="450" cy="333" r="7"/>
+    <circle cx="700" cy="281" r="7"/>
+    <circle cx="950" cy="247" r="7"/>
+  </g>
+
+  <!-- rótulo mono -->
+  <text x="64" y="86" font-family="Consolas, Menlo, monospace" font-size="26" letter-spacing="6" fill="#8b98a5">// DI x PRÉ</text>
+  <text x="64" y="560" font-family="Georgia, serif" font-style="italic" font-size="34" fill="#eef1f4">a curva fala primeiro</text>
+</svg>

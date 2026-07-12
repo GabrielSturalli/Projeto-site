@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Sturalli - Currículo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 3px solid #2dd4a7;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0a0e13;
+            margin-bottom: 5px;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            color: #2dd4a7;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .header-contact {
+            display: flex;
+            gap: 30px;
+            font-size: 14px;
+            color: #555;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0a0e13;
+            border-bottom: 2px solid #2dd4a7;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .entry {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+
+        .entry-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0a0e13;
+            margin-bottom: 3px;
+        }
+
+        .entry-company {
+            font-size: 14px;
+            color: #2dd4a7;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .entry-period {
+            font-size: 13px;
+            color: #888;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .entry-location {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .entry-description {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .skills-list {
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .skill-tag {
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border-left: 3px solid #2dd4a7;
+        }
+
+        .summary {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #2dd4a7;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-title">Gabriel Sturalli</div>
+            <div class="header-subtitle">C-Pro R | Economista em Formação | Especialista em Tesouraria e ALM</div>
+            <div class="header-contact">
+                <div class="contact-item">
+                    <span>📧 gabrielsturalli@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍 São Paulo, Brasil</span>
+                </div>
+                <div class="contact-item">
+                    <span>🔗 linkedin.com/in/gabriel-sturalli</span>
+                </div>
+                <div class="contact-item">
+                    <span>🌐 gabrielsturalli.com</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="section">
+            <div class="section-title">Resumo Profissional</div>
+            <div class="summary">
+                Economista em formação pela FECAP com foco em dados, ciência de dados e automação. Atualmente atuando como Estagiário em Tesouraria e ALM na Cielo, participando da área responsável por gerenciamento de ativos e análise de mercado. Experiência em análise técnica de indicadores econômicos, criação de dashboards interativos, automação de processos de dados via Python e SQL, e comunicação de conceitos econômicos complexos. Certificado C-Pro R e fluente em inglês (C2 - EF SET 72/100). Experiência prévia em gestão comercial (Santander) e empreendedorismo.
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Experiência Profissional</div>
+
+            <div class="entry">
+                <div class="entry-title">Estagiário em Tesouraria e ALM</div>
+                <div class="entry-company">Cielo • Estágio</div>
+                <div class="entry-period">Abril de 2025 – Presente | 1 ano 4 meses</div>
+                <div class="entry-location">São Paulo, Brasil • Híbrido</div>
+                <div class="entry-description">
+                    Acompanhamento ao vivo de indicadores macroeconômicos e estrutura de mercado. Análise técnica da curva de juros (DI x Pré), simulação de choques em cenários de taxa e curvatura. Desenvolvimento de dashboards interativos com dados do BCB e IBGE. Suporte à área de tesouraria no gerenciamento de ativos e decisões de posicionamento.
+                </div>
+                <div class="skills-list">
+                    <span class="skill-tag">Análise Técnica</span>
+                    <span class="skill-tag">Asset Management</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">SQL</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Gerente de Negócios Sênior (GNS 2)</div>
+                <div class="entry-company">Santander • Tempo Integral</div>
+                <div class="entry-period">Período anterior | 1 ano 1 mês</div>
+                <div class="entry-location">São Paulo, Brasil</div>
+                <div class="entry-description">
+                    Gestão de carteira de clientes e relacionamento comercial. Prospecção, análise de oportunidades de negócio e propostas de soluções financeiras. Acompanhamento de indicadores de desempenho comercial e meta de vendas. Análise de crédito e estruturação de operações.
+                </div>
+                <div class="skills-list">
+                    <span class="skill-tag">Vendas</span>
+                    <span class="skill-tag">Relacionamento com Cliente</span>
+                    <span class="skill-tag">Análise de Crédito</span>
+                    <span class="skill-tag">Negociação Comercial</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Monitor de Macroeconomia</div>
+                <div class="entry-company">FECAP • Centro Universitário</div>
+                <div class="entry-period">2024 – Presente | 1 ano</div>
+                <div class="entry-description">
+                    Apoio educacional aos alunos da disciplina de Macroeconomia. Orientação na resolução de exercícios, clarificação de conceitos econômicos complexos e auxílio na compreensão de modelos macroeconômicos. Complementação das aulas teóricas com exemplos práticos de aplicação no mercado financeiro.
+                </div>
+                <div class="skills-list">
+                    <span class="skill-tag">Educação</span>
+                    <span class="skill-tag">Macroeconomia</span>
+                    <span class="skill-tag">Comunicação</span>
+                    <span class="skill-tag">Mentoria</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Núcleo Asset Management</div>
+                <div class="entry-company">FECAP Finance</div>
+                <div class="entry-period">Julho de 2024 – Presente | 2 anos 1 mês</div>
+                <div class="entry-description">
+                    Participação em projeto de extensão da FECAP focado em análise de portfólios e decisões de alocação. Estudos de fatores macroeconômicos impactantes no desempenho de ativos. Documentação técnica e apresentação de análises para turmas de economia.
+                </div>
+                <div class="skills-list">
+                    <span class="skill-tag">Análise de Dados</span>
+                    <span class="skill-tag">Pesquisa Econômica</span>
+                    <span class="skill-tag">Apresentações</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Empreendedor/Chefe de Operações</div>
+                <div class="entry-company">Dia da Pizza • Negócio Próprio</div>
+                <div class="entry-period">Setembro de 2018 – Abril de 2024 | 5 anos 8 meses</div>
+                <div class="entry-description">
+                    Gestão completa de operações e negócio. Liderança de equipe, análise de fluxo de vendas e controle de estoque. Otimização de processos, gestão financeira e garantia de rentabilidade operacional. Treinamento de colaboradores e estratégia de atendimento ao cliente.
+                </div>
+                <div class="skills-list">
+                    <span class="skill-tag">Empreendedorismo</span>
+                    <span class="skill-tag">Gestão de Operações</span>
+                    <span class="skill-tag">Liderança</span>
+                    <span class="skill-tag">Gestão Financeira</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Formação Acadêmica</div>
+
+            <div class="entry">
+                <div class="entry-title">Bacharelado em Economia</div>
+                <div class="entry-company">FECAP • Fundação Escola de Comércio Álvares Penteado</div>
+                <div class="entry-period">Setembro de 2023 – Setembro de 2027</div>
+                <div class="entry-description">
+                    Estudante de economia com foco em macroeconomia, análise de dados e automação. Participação em projetos de extensão e pesquisa sobre comportamento de mercados financeiros. Competências principais: Estatística, Mercado de Crédito, Microeconomia.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Certificações e Credenciais</div>
+
+            <div class="entry">
+                <div class="entry-title">C-Pro R (Certified Professional in Risk)</div>
+                <div class="entry-company">ANBIMA • Certificação Profissional Anbima</div>
+                <div class="entry-description">
+                    Certificação profissional que qualifica para atuar em gestão de risco, análise de portfólios e operações no mercado de capitais. Cobre conhecimento aprofundado em renda fixa, variável, derivativos e gestão de ativos no contexto brasileiro.
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Certificado EF SET Inglês 72/100 (C2 - Domínio Pleno)</div>
+                <div class="entry-company">EF SET • English First</div>
+                <div class="entry-period">Emitido em: Fevereiro de 2025 | Válido até: Fevereiro de 2035</div>
+                <div class="entry-description">
+                    Certificação internacionalmente reconhecida de proficiência em inglês no nível mais alto (C2), compatível com certificações TOEFL e IELTS.
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Python 3 - Mundo 2 [40 Horas]</div>
+                <div class="entry-company">Curso em Vídeo • Educação Online</div>
+                <div class="entry-period">Emitido em: Fevereiro de 2025</div>
+                <div class="entry-description">
+                    Certificado de conclusão do curso avançado de Python 3, cobrindo estruturas de dados, orientação a objetos e automação de tarefas.
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">EBP – Excel + Business Program</div>
+                <div class="entry-company">Business Training Company • Treinamento Corporativo</div>
+                <div class="entry-description">
+                    Certificação em Excel avançado para análise de dados empresariais, funções financeiras e criação de modelos preditivos.
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Introdução a Python</div>
+                <div class="entry-company">Curso em Vídeo • Educação Online</div>
+                <div class="entry-description">
+                    Certificado de conclusão do curso introdutório de Python 3, cobrindo variáveis, estruturas de controle, funções e algoritmos.
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Algoritmos</div>
+                <div class="entry-company">Curso em Vídeo • Educação Online</div>
+                <div class="entry-description">
+                    Certificado em lógica de programação e estrutura de algoritmos, fundamentação para desenvolvimento de soluções computacionais.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Competências Principais</div>
+            <div class="skills-list">
+                <span class="skill-tag">Análise de Dados</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">Excel Avançado</span>
+                <span class="skill-tag">Economia</span>
+                <span class="skill-tag">Mercado Financeiro</span>
+                <span class="skill-tag">Asset Management</span>
+                <span class="skill-tag">Tesouraria</span>
+                <span class="skill-tag">Análise Técnica</span>
+                <span class="skill-tag">Estatística</span>
+                <span class="skill-tag">Mercado de Crédito</span>
+                <span class="skill-tag">Comunicação</span>
+                <span class="skill-tag">Liderança</span>
+                <span class="skill-tag">Análise de Dados</span>
+                <span class="skill-tag">Inglês Fluente</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Projetos e Portfólio</div>
+
+            <div class="entry">
+                <div class="entry-title">Dashboard de Indicadores Macroeconômicos</div>
+                <div class="entry-description">
+                    Desenvolvimento de dashboard interativo com dados ao vivo do BCB e IBGE. Simulador de cenários de taxa, inclinação e curvatura da curva de juros. Integração com API do banco central brasileiro. Hospedado no portfólio pessoal.
+                </div>
+                <div class="skills-list">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">APIs</span>
+                    <span class="skill-tag">Visualização de Dados</span>
+                    <span class="skill-tag">Economia</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Automação de Prospecção CNPJ</div>
+                <div class="entry-description">
+                    Script em Python para extração e análise de dados públicos de empresas via base de dados da Receita Federal. Análise de padrões de empresas, segmentação por atividade econômica e geração de relatórios. Integração com banco de dados SQL.
+                </div>
+                <div class="skills-list">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">Web Scraping</span>
+                    <span class="skill-tag">Automação</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Blog: Análise de Economia e Fatores Relevantes</div>
+                <div class="entry-description">
+                    Seção do portfólio com artigos sobre conjuntura macroeconômica, análise de fatores que impactam o mercado financeiro e educação econômica. Comentários sobre COPOM, curva de juros e indicadores relevantes.
+                </div>
+                <div class="skills-list">
+                    <span class="skill-tag">Escrita Técnica</span>
+                    <span class="skill-tag">Economia</span>
+                    <span class="skill-tag">Comunicação</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Portfólio Profissional - gabrielsturalli.com</div>
+                <div class="entry-description">
+                    Site profissional com demonstração de projetos, artigos, vídeos educacionais do canal Entendendo Dinheiro, e casos de uso em análise de dados. Showcasing de habilidades em economia, programação e comunicação.
+                </div>
+                <div class="skills-list">
+                    <span class="skill-tag">Web Design</span>
+                    <span class="skill-tag">Portfolio</span>
+                    <span class="skill-tag">Comunicação Visual</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Idiomas</div>
+            <div class="entry">
+                <div class="entry-title">Português</div>
+                <div class="entry-description">Nativo</div>
+            </div>
+            <div class="entry">
+                <div class="entry-title">Inglês</div>
+                <div class="entry-description">Fluente (C2 - EF SET 72/100)</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
