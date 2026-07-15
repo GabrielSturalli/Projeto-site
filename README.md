@@ -88,4 +88,4 @@ O site está hospedado em `https://seu-usuario.github.io/seu-repositorio`
 
 ---
 
-**Desenvolvido com** ❤️ **e** 💻 **por Claude Code**
+**Desenvolvido com** ❤️ 
